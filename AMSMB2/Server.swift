@@ -1406,7 +1406,7 @@ func encodeDirectoryEntries(
         info.file_attributes = entry.fileAttributes
         info.file_name_length = UInt32(entry.name.utf16.count * 2)
         info.ea_size = 0
-        info.short_name_length = UInt8(min(entry.name.count, 12))
+        info.short_name_length = 0  // No 8.3 short name provided
         info.file_id = entry.fileId
         info.name = UnsafePointer(nameCString)
 
