@@ -17,6 +17,10 @@ let package = Package(
             type: .dynamic,
             targets: ["AMSMB2"]
         ),
+        .executable(
+            name: "SMB2ServerExample",
+            targets: ["SMB2ServerExample"]
+        ),
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-atomics.git", .upToNextMajor(from: "1.2.0")),
@@ -64,6 +68,11 @@ let package = Package(
                 .product(name: "Atomics", package: "swift-atomics"),
             ],
             path: "AMSMB2Tests"
+        ),
+        .executableTarget(
+            name: "SMB2ServerExample",
+            dependencies: ["AMSMB2"],
+            path: "Sources/SMB2ServerExample"
         ),
     ]
 )

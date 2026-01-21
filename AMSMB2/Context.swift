@@ -574,14 +574,14 @@ struct ShareProperties: RawRepresentable {
     }
 }
 
-struct NTStatus: LocalizedError, Hashable, Sendable {
-    enum Severity: UInt32, Hashable, Sendable, CustomStringConvertible {
+public struct NTStatus: LocalizedError, Hashable, Sendable {
+    public enum Severity: UInt32, Hashable, Sendable, CustomStringConvertible {
         case success
         case info
         case warning
         case error
         
-        var description: String {
+        public var description: String {
             switch self {
             case .success: return "Success"
             case .info: return "Info"
@@ -606,27 +606,27 @@ struct NTStatus: LocalizedError, Hashable, Sendable {
         }
     }
     
-    let rawValue: UInt32
-    
-    init(rawValue: UInt32) {
+    public let rawValue: UInt32
+
+    public init(rawValue: UInt32) {
         self.rawValue = rawValue
     }
-    
-    init(rawValue: Int32) {
+
+    public init(rawValue: Int32) {
         self.rawValue = .init(bitPattern: rawValue)
     }
-    
-    var errorDescription: String? {
+
+    public var errorDescription: String? {
         nterror_to_str(rawValue).map(String.init(cString:))
     }
     
-    var posixErrorCode: POSIXErrorCode {
+    public var posixErrorCode: POSIXErrorCode {
         .init(nterror_to_errno(rawValue))
     }
-    
-    var severity: Severity {
+
+    public var severity: Severity {
         .init(status: self)
     }
-    
-    static let success = Self(rawValue: SMB2_STATUS_SUCCESS)
+
+    public static let success = Self(rawValue: SMB2_STATUS_SUCCESS)
 }
